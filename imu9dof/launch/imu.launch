@@ -1,0 +1,17 @@
+ <launch>
+
+ 	<arg name="namespace" default="quad1"/>
+ 	<!-- Read the raw data from IMU -->
+	<node ns="$(arg namespace)" name="imu_sensor" pkg="imu9dof" type="imu9250.py" output="screen" />
+
+	<!-- Filter Node -->
+	<node ns="$(arg namespace)" pkg="imu_complementary_filter" type="complementary_filter_node" name="complementary_filter_gain_node" output="screen">
+        <param name="do_bias_estimation" value="false"/>
+        <param name="publish_debug_topics" value="true"/>
+        <param name="do_adaptive_gain" value="false"/>
+        <param name="use_mag" value="true"/>
+        <param name="gain_acc" value="0.08"/>
+        <param name="gain_mag" value="0.7"/>
+    </node> 
+
+</launch>
